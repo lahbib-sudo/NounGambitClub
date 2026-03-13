@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noun Gambit | Extreme Minimalist SPA</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#121212',
+            gold: '#C29958',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .gold-border {
+      border-color: #C29958;
+    }
+
+    .gold-text {
+      color: #C29958;
+    }
+
+    .gold-bg {
+      background-color: #C29958;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #121212;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #C29958;
+      border-radius: 10px;
+    }
+
+    .hidden-section {
+      display: none;
+    }
+
+    /* Slider Styles */
+    .slider-container {
+      position: relative;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slider-nav {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+      background: rgba(18, 18, 18, 0.4);
+      backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: #C29958;
+      transform: scale(1.2);
+    }
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(18, 18, 18, 0.4);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .slider-container:hover .slider-arrow {
+      opacity: 1;
+    }
+
+    .slider-arrow:hover {
+      background: #C29958;
+      color: #121212;
+    }
+
+    .arrow-left {
+      left: 20px;
+    }
+
+    .arrow-right {
+      right: 20px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header / Nav -->
+  <header class="p-6 border-b border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="flex items-center gap-3 cursor-pointer group" id="logo-home">
+      <h1 class="font-heading font-bold text-2xl tracking-tighter">NOUN <span class="gold-text">GAMBIT</span></h1>
+      <i data-lucide="horse-head" class="w-8 h-8 gold-text transition-transform group-hover:scale-110"></i>
+    </div>
+
+    <nav class="flex items-center gap-8 text-xs uppercase tracking-widest font-bold">
+      <button class="nav-link text-white/40 hover:text-gold transition-colors" data-view="home">Home</button>
+      <button class="nav-link text-white/40 hover:text-gold transition-colors" data-view="public">Standings</button>
+      <button class="nav-link text-white/40 hover:text-gold transition-colors" data-view="admin">Admin</button>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto max-w-4xl p-6 lg:p-12">
+
+    <!-- Home / Description Section -->
+    <section id="home-section" class="hidden-section">
+      <div class="space-y-12">
+        <div class="space-y-6">
+          <h2 class="font-heading text-5xl lg:text-7xl font-bold leading-tight">NOUN<span
+              class="gold-text">GAMBIT</span>.</h2>
+          <p class="text-white/60 text-xl leading-relaxed max-w-2xl">
+            Founded on March 3, 2025, in the heart of Guelmim, NOUN GAMBIT Chess Club is more than just a place to
+            play—it is a sanctuary for strategic thinking, intellectual growth, and competitive spirit.
+          </p>
+        </div>
+
+        <!-- Image Slider -->
+        <div class="slider-container group">
+          <div class="slide active" style="background-image: url('assets/slide1.jpg');"></div>
+          <div class="slide" style="background-image: url('assets/slide2.jpg');"></div>
+          <div class="slide" style="background-image: url('assets/slide3.jpg');"></div>
+
+          <button class="slider-arrow arrow-left" id="prev-slide">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <button class="slider-arrow arrow-right" id="next-slide">
+            <i data-lucide="chevron-right"></i>
+          </button>
+
+          <div class="slider-nav" id="slider-dots">
+            <!-- Dynamically generated by JS -->
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <div class="space-y-4">
+            <h3 class="text-gold font-bold uppercase tracking-widest text-sm">Our Mission</h3>
+            <p class="text-white/40 leading-relaxed">
+              What We Offer <br><br>
+              <strong>Expert Coaching:</strong> Tailored training sessions for absolute beginners to advanced tournament
+              players. <br><br>
+
+              <strong>Competitive Tournaments:</strong> Regular local blitz and rapid events to sharpen your skills.
+              <br><br>
+
+              <strong>Youth Development:</strong> Specialized programs focusing on cognitive development for children
+              and students. <br><br>
+
+              <strong>Community Hub:</strong> A welcoming environment for chess enthusiasts to meet, analyze games, and
+              share their
+              passion. <br><br>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="pt-12 border-t border-white/10 flex gap-6">
+          <button class="nav-link text-gold font-bold border-b-2 border-gold pb-1" data-view="public">View Live
+            Rankings</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Public Standings Section -->
+    <section id="public-section" class="hidden-section">
+      <div class="mb-12">
+        <h2 class="font-heading text-4xl lg:text-5xl font-bold mb-4">The premier chess destination in <span
+            class="gold-text">Guelmim</span>.</h2>
+        <p class="text-white/40 text-lg">Live tournament standings and rankings.</p>
+      </div>
+
+      <div class="border border-white/10 rounded-lg overflow-hidden bg-white/5">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b border-white/10 bg-white/5">
+              <th class="p-4 font-semibold text-white/60">Rank</th>
+              <th class="p-4 font-semibold text-white/60">Player Name</th>
+              <th class="p-4 font-semibold text-white/60 text-right">Points</th>
+            </tr>
+          </thead>
+          <tbody id="standings-body">
+            <!-- JS Injected -->
+          </tbody>
+        </table>
+        <div id="no-players-msg" class="p-12 text-center text-white/20 hidden">
+          No active players found.
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Dashboard Section -->
+    <section id="admin-section" class="hidden-section animate-in fade-in duration-500">
+      <div class="flex flex-col gap-12">
+
+        <!-- Player Management -->
+        <div>
+          <h3 class="font-heading text-2xl font-bold mb-6 flex items-center gap-2">
+            <i data-lucide="users" class="w-6 h-6 gold-text"></i> Player Management
+          </h3>
+          <form id="add-player-form" class="flex gap-2">
+            <input type="text" id="player-name-input" placeholder="Enter Full Name"
+              class="bg-white/5 border border-white/10 rounded px-4 py-2 flex-grow focus:outline-none focus:border-gold transition-colors">
+            <button type="submit"
+              class="gold-bg text-charcoal px-6 py-2 rounded font-bold hover:brightness-110 transition-all">
+              Add Player
+            </button>
+          </form>
+          <div id="player-list-chips" class="flex flex-wrap gap-2 mt-4">
+            <!-- JS Injected -->
+          </div>
+        </div>
+
+        <hr class="border-white/10">
+
+        <!-- Pairing Engine -->
+        <div>
+          <div class="flex justify-between items-center mb-6">
+            <h3 class="font-heading text-2xl font-bold flex items-center gap-2">
+              <i data-lucide="swords" class="w-6 h-6 gold-text"></i> Pairing Engine
+            </h3>
+            <button id="generate-pairings-btn"
+              class="border border-gold gold-text px-4 py-1 text-sm rounded font-bold hover:bg-gold hover:text-charcoal transition-all">
+              Generate Next Round
+            </button>
+          </div>
+
+          <div class="space-y-3" id="pairings-list">
+            <!-- JS Injected -->
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-4 mt-8">
+          <button id="reset-data-btn"
+            class="text-xs text-red-500/50 hover:text-red-500 underline uppercase tracking-widest font-bold">
+            Reset All Data
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="p-8 border-t border-white/10 text-center space-y-4">
+    <p class="text-white/20 text-sm font-medium tracking-wide">Made for the Chess Community in Guelmim</p>
+    <div class="flex flex-col items-center gap-2">
+      <p class="text-white/40 text-xs">Developed by <span class="gold-text font-bold">Lahbib Kharraja</span></p>
+      <a href="https://www.linkedin.com/in/lahbib-kharraja-70b728212?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        target="_blank" class="flex items-center gap-2 text-white/20 hover:text-gold transition-colors text-xs">
+        <i data-lucide="linkedin" class="w-4 h-4"></i>
+        Connect on LinkedIn
+      </a>
+    </div>
+  </footer>
+
+  <!-- Logic -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>
